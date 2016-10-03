@@ -160,6 +160,11 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
             mType = ofxDatGuiType::MATRIX;
             setTheme(ofxDatGuiComponent::getTheme());
         }
+
+        void resize(int size){
+          mNumButtons = size;
+          setTheme(ofxDatGuiComponent::getTheme());
+        }
     
         void setTheme(const ofxDatGuiTheme* theme)
         {
