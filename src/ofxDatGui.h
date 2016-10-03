@@ -100,6 +100,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
     
+        void removeComponent(ofxDatGuiType type, string label);
 
         void layoutGui();
 
