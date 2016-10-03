@@ -100,6 +100,9 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
     
+
+        void layoutGui();
+
     private:
     
         int mIndex;
@@ -134,7 +137,6 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         static unique_ptr<ofxDatGuiTheme> theme;
     
         void init();
-        void layoutGui();
         void anchorGui();
         void moveGui(ofPoint pt);
         bool hitTest(ofPoint pt);
