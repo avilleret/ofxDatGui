@@ -26,20 +26,20 @@
 
 class ofxDatGui : public ofxDatGuiInteractiveObject
 {
-    
+
     public:
-    
+
         ofxDatGui(int x, int y);
         ofxDatGui(ofxDatGuiAnchor anchor = ofxDatGuiAnchor::TOP_LEFT);
         ~ofxDatGui();
-    
+
         void draw();
         void update();
         void focus();
         void expand();
         void toggle();
         void collapse();
-    
+
         void setWidth(int width, float labelWidth = 0.35f);
         void setVisible(bool visible);
         void setEnabled(bool enabled);
@@ -51,7 +51,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void setLabelAlignment(ofxDatGuiAlignment align);
         static void setAssetPath(string path);
         static string getAssetPath();
-    
+
         int getWidth();
         int getHeight();
         bool getFocused();
@@ -62,7 +62,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         vector<ofxDatGuiComponent*> & getItems(){
             return items;
         }
-    
+
         ofxDatGuiHeader* addHeader(string label = "", bool draggable = true);
         ofxDatGuiFooter* addFooter();
         ofxDatGuiLabel* addLabel(string label);
@@ -84,7 +84,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiMatrix* addMatrix(string label, int numButtons, bool showLabels = false);
         ofxDatGuiFolder* addFolder(string label, ofColor color = ofColor::white);
         ofxDatGuiFolder* addFolder(ofxDatGuiFolder* folder);
-    
+
         ofxDatGuiHeader* getHeader();
         ofxDatGuiFooter* getFooter();
         ofxDatGuiLabel* getLabel(string label, string folder = "");
@@ -99,7 +99,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiValuePlotter* getValuePlotter(string label, string folder = "");
         ofxDatGuiFolder* getFolder(string label);
         ofxDatGuiDropdown* getDropdown(string label);
-    
+
         void removeComponent(ofxDatGuiType type, string label);
 
         void layoutGui();
@@ -123,7 +123,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         bool mThemeChanged;
         bool mAlignmentChanged;
         ofColor mGuiBackground;
-    
+
         ofPoint mPosition;
         ofRectangle mGuiBounds;
         ofxDatGuiAnchor mAnchor;
@@ -136,17 +136,17 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         static ofxDatGui* mActiveGui;
         static vector<ofxDatGui*> mGuis;
         static unique_ptr<ofxDatGuiTheme> theme;
-    
+
         void init();
         void anchorGui();
         void moveGui(ofPoint pt);
         bool hitTest(ofPoint pt);
         void attachItem(ofxDatGuiComponent* item);
-    
+
         void onDraw(ofEventArgs &e);
         void onUpdate(ofEventArgs &e);
         void onWindowResized(ofResizeEventArgs &e);
-    
+
         ofxDatGuiComponent* getComponent(string key);
         ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label);
         void onInternalEventCallback(ofxDatGuiInternalEvent e);
