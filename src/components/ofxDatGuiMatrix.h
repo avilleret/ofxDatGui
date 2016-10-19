@@ -152,7 +152,6 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
 
     public:
     
-
         ofxDatGuiMatrix(string label, int numButtons, bool showLabels = false) : ofxDatGuiComponent(label), mButtonSize(23)
         {
             mRadioMode = false;

@@ -251,7 +251,7 @@ ofxDatGuiHeader* ofxDatGui::addHeader(string label, bool draggable)
             items.insert(items.begin(), mGuiHeader);
         }
         layoutGui();
-	}
+    }
     return mGuiHeader;
 }
 
@@ -262,7 +262,7 @@ ofxDatGuiFooter* ofxDatGui::addFooter()
         items.push_back(mGuiFooter);
         mGuiFooter->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
         layoutGui();
-	}
+    }
     return mGuiFooter;
 }
 
@@ -836,7 +836,7 @@ void ofxDatGui::layoutGui()
     mGuiBounds = ofRectangle(mPosition.x, mPosition.y, mWidth, mHeight);
 }
 
-/* 
+/*
     update & draw loop
 */
 

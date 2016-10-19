@@ -35,53 +35,53 @@
 class ofxDatGuiGroup : public ofxDatGuiButton {
 
     public:
-    
+
         ofxDatGuiGroup(string label) : ofxDatGuiButton(label), mHeight(0)
         {
             mIsExpanded = false;
             layout();
         }
-    
+
         ~ofxDatGuiGroup()
         {
         // color pickers are deleted automatically when the group is destroyed //
             for (auto i:children) if (i->getType() != ofxDatGuiType::COLOR_PICKER) delete i;
         }
-    
+
         void setPosition(int x, int y)
         {
             ofxDatGuiComponent::setPosition(x, y);
             layout();
         }
-    
+
         void expand()
         {
             mIsExpanded = true;
             layout();
         }
-    
+
         void toggle()
         {
             mIsExpanded = !mIsExpanded;
             layout();
         }
-    
+
         void collapse()
         {
             mIsExpanded = false;
             layout();
         }
-    
+
         int getHeight()
         {
             return mHeight;
         }
-    
+
         bool getIsExpanded()
         {
             return mIsExpanded;
         }
-    
+
         void draw()
         {
             if (mVisible){
@@ -109,9 +109,9 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                 ofPopStyle();
             }
         }
-    
+
     protected:
-    
+
         void layout()
         {
             mHeight = mStyle.height + mStyle.vMargin;
@@ -126,7 +126,7 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                 if (i == children.size()-1) mHeight -= mStyle.vMargin;
             }
         }
-    
+
         void onMouseRelease(ofPoint m)
         {
             if (mFocused){
@@ -141,13 +141,13 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                 }
             }
         }
-    
+
         void dispatchInternalEvent(ofxDatGuiInternalEvent e)
         {
             if (e.type == ofxDatGuiEventType::VISIBILITY_CHANGED) layout();
             internalEventCallback(e);
         }
-    
+
         int mHeight;
         shared_ptr<ofImage> mIconOpen;
         shared_ptr<ofImage> mIconClosed;
@@ -155,7 +155,10 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
 
 };
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
 class ofxDatGuiDropdownOption : public ofxDatGuiButton {
 
     public:
@@ -241,6 +244,14 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             return static_cast<ofxDatGuiDropdownOption*>(children[mOption]);
         }
 
+<<<<<<< HEAD
+=======
+        int getSelectedIndex()
+        {
+            return mOption;
+        }
+
+>>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
         static ofxDatGuiDropdown* getInstance() { return new ofxDatGuiDropdown("X"); }
 
     private:
@@ -260,13 +271,16 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
 
         int mOption;
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
 };
 
 class ofxDatGuiFolder : public ofxDatGuiGroup {
 
     public:
-    
+
         ofxDatGuiFolder(string label, ofColor color = ofColor::white) : ofxDatGuiGroup(label)
         {
         // all items within a folder share the same stripe color //
@@ -274,7 +288,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             mType = ofxDatGuiType::FOLDER;
             setTheme(ofxDatGuiComponent::getTheme());
         }
-    
+
         void setTheme(const ofxDatGuiTheme* theme)
         {
             setComponentStyle(theme);
@@ -284,7 +298,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         // reassign folder color to all components //
             for(auto i:children) i->setStripeColor(mStyle.stripe.color);
         }
-    
+
         void setWidth(int width, float labelWidth = 1)
         {
             ofxDatGuiComponent::setWidth(width, labelWidth);
@@ -292,12 +306,12 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             mLabel.rightAlignedXpos = mIcon.x - mLabel.margin;
             ofxDatGuiComponent::positionLabel();
         }
-    
+
         void drawColorPicker()
         {
             for(int i=0; i<pickers.size(); i++) pickers[i]->drawColorPicker();
         }
-    
+
         void dispatchButtonEvent(ofxDatGuiButtonEvent e)
         {
             if (buttonEventCallback != nullptr) {
@@ -306,7 +320,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
-    
+
         void dispatchToggleEvent(ofxDatGuiToggleEvent e)
         {
             if (toggleEventCallback != nullptr) {
@@ -318,7 +332,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
-    
+
         void dispatchSliderEvent(ofxDatGuiSliderEvent e)
         {
             if (sliderEventCallback != nullptr) {
@@ -327,7 +341,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
-    
+
         void dispatchTextInputEvent(ofxDatGuiTextInputEvent e)
         {
             if (textInputEventCallback != nullptr) {
@@ -336,7 +350,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
-    
+
         void dispatchColorPickerEvent(ofxDatGuiColorPickerEvent e)
         {
             if (colorPickerEventCallback != nullptr) {
@@ -345,7 +359,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
-    
+
         void dispatch2dPadEvent(ofxDatGui2dPadEvent e)
         {
             if (pad2dEventCallback != nullptr) {
@@ -354,7 +368,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
         }
-    
+
         void dispatchMatrixEvent(ofxDatGuiMatrixEvent e)
         {
             if (matrixEventCallback != nullptr) {
@@ -384,7 +398,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(button);
             return button;
         }
-    
+
         ofxDatGuiToggle* addToggle(string label, bool enabled = false)
         {
             ofxDatGuiToggle* toggle = new ofxDatGuiToggle(label, enabled);
@@ -393,7 +407,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(toggle);
             return toggle;
         }
-    
+
         ofxDatGuiSlider* addSlider(string label, float min, float max)
         {
             ofxDatGuiSlider* slider = addSlider(label, min, max, (max+min)/2);
@@ -424,7 +438,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(slider);
             return slider;
         }
-    
+
         ofxDatGuiTextInput* addTextInput(string label, string value)
         {
             ofxDatGuiTextInput* input = new ofxDatGuiTextInput(label, value);
@@ -433,7 +447,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(input);
             return input;
         }
-    
+
         ofxDatGuiColorPicker* addColorPicker(string label, ofColor color = ofColor::black)
         {
             shared_ptr<ofxDatGuiColorPicker> picker(new ofxDatGuiColorPicker(label, color));
@@ -443,7 +457,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             pickers.push_back(picker);
             return picker.get();
         }
-    
+
         ofxDatGuiFRM* addFRM(float refresh = 1.0f)
         {
             ofxDatGuiFRM* monitor = new ofxDatGuiFRM(refresh);
@@ -458,7 +472,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(brk);
             return brk;
         }
-    
+
         ofxDatGui2dPad* add2dPad(string label)
         {
             ofxDatGui2dPad* pad = new ofxDatGui2dPad(label);
@@ -476,7 +490,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(matrix);
             return matrix;
         }
-    
+
         ofxDatGuiWaveMonitor* addWaveMonitor(string label, float frequency, float amplitude)
         {
             ofxDatGuiWaveMonitor* monitor = new ofxDatGuiWaveMonitor(label, frequency, amplitude);
@@ -484,7 +498,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(monitor);
             return monitor;
         }
-    
+
         ofxDatGuiValuePlotter* addValuePlotter(string label, float min, float max)
         {
             ofxDatGuiValuePlotter* plotter = new ofxDatGuiValuePlotter(label, min, max);
@@ -492,7 +506,11 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(plotter);
             return plotter;
         }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
         ofxDatGuiDropdown* addDropdown(string label, vector<string> opts)
         {
             ofxDatGuiDropdown* menu = new ofxDatGuiDropdown(label, opts);
@@ -500,6 +518,10 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(menu);
             return menu;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
         void attachItem(ofxDatGuiComponent* item)
         {
             item->setIndex(children.size());
@@ -507,7 +529,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             children.push_back(item);
             layout();
         }
-    
+
         ofxDatGuiComponent* getComponent(ofxDatGuiType type, string label)
         {
             for (int i=0; i<children.size(); i++) {
@@ -521,7 +543,10 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         void removeComponent(ofxDatGuiType type, string name){
             ofxDatGuiComponent* cpt = getComponent(type,name);
             children.erase(std::remove(children.begin(),children.end(),cpt), children.end());
+<<<<<<< HEAD
             layout();
+=======
+>>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
         }
 
         static ofxDatGuiFolder* getInstance() { return new ofxDatGuiFolder("X"); }
