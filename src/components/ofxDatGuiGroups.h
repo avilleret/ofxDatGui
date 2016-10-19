@@ -155,10 +155,6 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
 
 };
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
 class ofxDatGuiDropdownOption : public ofxDatGuiButton {
 
     public:
@@ -244,14 +240,11 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
             return static_cast<ofxDatGuiDropdownOption*>(children[mOption]);
         }
 
-<<<<<<< HEAD
-=======
         int getSelectedIndex()
         {
             return mOption;
         }
 
->>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
         static ofxDatGuiDropdown* getInstance() { return new ofxDatGuiDropdown("X"); }
 
     private:
@@ -270,11 +263,6 @@ class ofxDatGuiDropdown : public ofxDatGuiGroup {
         }
 
         int mOption;
-
-<<<<<<< HEAD
-    
-=======
->>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
 };
 
 class ofxDatGuiFolder : public ofxDatGuiGroup {
@@ -506,11 +494,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(plotter);
             return plotter;
         }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
         ofxDatGuiDropdown* addDropdown(string label, vector<string> opts)
         {
             ofxDatGuiDropdown* menu = new ofxDatGuiDropdown(label, opts);
@@ -518,10 +502,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(menu);
             return menu;
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
         void attachItem(ofxDatGuiComponent* item)
         {
             item->setIndex(children.size());
@@ -543,10 +524,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         void removeComponent(ofxDatGuiType type, string name){
             ofxDatGuiComponent* cpt = getComponent(type,name);
             children.erase(std::remove(children.begin(),children.end(),cpt), children.end());
-<<<<<<< HEAD
             layout();
-=======
->>>>>>> a68a23ebc52d5b5eb7ba04d4f9b3814d2ba28b25
         }
 
         static ofxDatGuiFolder* getInstance() { return new ofxDatGuiFolder("X"); }
