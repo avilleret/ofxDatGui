@@ -20,7 +20,7 @@ void ofApp::setup()
     guiFolder->onButtonEvent(this, &ofApp::onButtonEventFolder);
 
     guiMatrix = new ofxDatGui();
-    guiMatrix->addHeader("gui with folder");
+    guiMatrix->addHeader("gui with matrix");
     guiMatrix->addButton("add a button");
     guiMatrix->addButton("remove a button");
     // here we store the folder pointer to re-use it later to add some component
