@@ -358,6 +358,14 @@ ofxDatGuiDropdown* ofxDatGui::addDropdown(string label, vector<string> options)
     return dropdown;
 }
 
+ofxDatGuiScrollView* ofxDatGui::addScrollView(string label, int nvisible)
+{
+    ofxDatGuiScrollView* view = new ofxDatGuiScrollView(label, nvisible);
+    view->onScrollViewEvent(this, &ofxDatGui::onScrollViewEventCallback);
+    attachItem(view);
+    return view;
+}
+
 ofxDatGuiFRM* ofxDatGui::addFRM(float refresh)
 {
     ofxDatGuiFRM* monitor = new ofxDatGuiFRM(refresh);
@@ -733,6 +741,15 @@ void ofxDatGui::onDropdownEventCallback(ofxDatGuiDropdownEvent e)
     }
 // adjust the gui after a dropdown is closed //
     layoutGui();
+}
+
+void ofxDatGui::onScrollViewEventCallback(ofxDatGuiScrollViewEvent e)
+{
+    if (scrollViewEventCallback != nullptr) {
+        scrollViewEventCallback(e);
+    }   else{
+        ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+    }
 }
 
 void ofxDatGui::on2dPadEventCallback(ofxDatGui2dPadEvent e)

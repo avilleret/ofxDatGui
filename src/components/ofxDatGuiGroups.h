@@ -516,6 +516,15 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             attachItem(menu);
             return menu;
         }
+
+        ofxDatGuiScrollView* addScrollView(string label, int height)
+        {
+            ofxDatGuiScrollView* view = new ofxDatGuiScrollView(label, height);
+            view->setStripeColor(mStyle.stripe.color);
+            attachItem(view);
+            return view;
+        }
+
         void attachItem(ofxDatGuiComponent* item)
         {
             item->setIndex(children.size());

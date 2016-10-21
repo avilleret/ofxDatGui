@@ -84,6 +84,7 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiMatrix* addMatrix(string label, int numButtons, bool showLabels = false);
         ofxDatGuiFolder* addFolder(string label, ofColor color = ofColor::white);
         ofxDatGuiFolder* addFolder(ofxDatGuiFolder* folder);
+        ofxDatGuiScrollView* addScrollView(string label, int nvisible = 6);
     
         ofxDatGuiHeader* getHeader();
         ofxDatGuiFooter* getFooter();
@@ -156,5 +157,6 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void on2dPadEventCallback(ofxDatGui2dPadEvent e);
         void onColorPickerEventCallback(ofxDatGuiColorPickerEvent e);
         void onMatrixEventCallback(ofxDatGuiMatrixEvent e);
+        void onScrollViewEventCallback(ofxDatGuiScrollViewEvent e);
 
 };
