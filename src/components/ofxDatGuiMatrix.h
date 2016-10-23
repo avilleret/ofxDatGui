@@ -242,6 +242,7 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
         {
             clear();
             for (int i=0; i<v.size(); i++) btns[v[i]].setSelected(true);
+            mLastItemSelected = &btns[v.back()];
         }
     
         vector<int> getSelected()
@@ -259,8 +260,15 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
         void dispatchEvent()
         {
             if (matrixEventCallback != nullptr) {
-                ofxDatGuiMatrixEvent ev(this, mLastItemSelected->getIndex(), mLastItemSelected->getSelected());
-                matrixEventCallback(ev);
+                if (btns.size() != 0){
+                    if (mLastItemSelected == nullptr){
+                        mLastItemSelected = &btns.back();
+                    }
+                    ofxDatGuiMatrixEvent e(this, mLastItemSelected->getIndex(), mLastItemSelected->getSelected());
+                    matrixEventCallback(e);
+                }   else{
+                    ofxDatGuiLog::write(ofxDatGuiMsg::MATRIX_EMPTY);
+                }
             }   else{
                 ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
             }
