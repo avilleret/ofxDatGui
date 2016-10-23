@@ -168,7 +168,7 @@ private:
                             selected.push_back(n);
                         }
                         mat->setSelected(selected);
-                        // mat->dispatchEvent(); // this is buggy, see https://github.com/braitsch/ofxDatGui/issues/104
+                        mat->dispatchEvent();
                         break;
                     }
                 }
