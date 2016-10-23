@@ -168,8 +168,8 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
 
 void ofApp::onMatrixEvent(ofxDatGuiMatrixEvent e)
 {
-    // cout << "onMatrixEvent " << e.child << " : " << e.enabled << endl;
-    // cout << "onMatrixEvent " << e.target->getLabel() << " : " << e.target->getSelected().size() << endl;
+    cout << "onMatrixEvent " << e.child << " : " << e.enabled << endl;
+    cout << "onMatrixEvent " << e.target->getLabel() << " : " << e.target->getSelected().size() << endl;
 }
 
 void ofApp::draw() {
