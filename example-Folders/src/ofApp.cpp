@@ -21,8 +21,10 @@ void ofApp::setup()
     f1->addColorPicker("color picker", ofColor::fromHex(0x2FA1D6));
     f1->addWaveMonitor("wave monitor", 3, .5);
     f1->setPosition(x, y);
+    vector<string> opts = {"one", "two", "three", "four"};
+    f1->addDropdown("choose option :", opts);
     f1->expand();
-    
+
     f2 = new ofxDatGuiFolder("folder 2", ofColor::fromHex(0x1ED36F));
     f2->setPosition(x + f1->getWidth()+40, y);
     f2->addButton("button");
@@ -33,13 +35,14 @@ void ofApp::setup()
     f2->add2dPad("2d pad");
     f2->addSlider("slider", 0, 100);
     f2->expand();
-    
+
     f1->onButtonEvent(this, &ofApp::onButtonEvent);
     f1->onToggleEvent(this, &ofApp::onToggleEvent);
     f1->onSliderEvent(this, &ofApp::onSliderEvent);
     f1->onMatrixEvent(this, &ofApp::onMatrixEvent);
     f1->onColorPickerEvent(this, &ofApp::onColorPickerEvent);
-    
+    f1->onDropdownEvent(this, &ofApp::onDropdownEvent);
+
     f2->onButtonEvent(this, &ofApp::onButtonEvent);
     f2->onMatrixEvent(this, &ofApp::onMatrixEvent);
     f2->on2dPadEvent(this, &ofApp::on2dPadEvent);
@@ -79,6 +82,11 @@ void ofApp::onColorPickerEvent(ofxDatGuiColorPickerEvent e)
 void ofApp::onMatrixEvent(ofxDatGuiMatrixEvent e)
 {
     cout << "onMatrixEvent" << endl;
+}
+
+void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
+{
+    cout << "onDropdownEvent : " << e.child << endl;
 }
 
 void ofApp::update()

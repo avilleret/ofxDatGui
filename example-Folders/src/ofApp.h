@@ -10,10 +10,10 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
         string getHex(int hex);
-    
+
         ofxDatGuiFolder* f1;
         ofxDatGuiFolder* f2;
-    
+
         void onButtonEvent(ofxDatGuiButtonEvent e);
         void onToggleEvent(ofxDatGuiToggleEvent e);
         void onSliderEvent(ofxDatGuiSliderEvent e);
@@ -21,5 +21,6 @@ class ofApp : public ofBaseApp{
         void on2dPadEvent(ofxDatGui2dPadEvent e);
         void onTextInputEvent(ofxDatGuiTextInputEvent e);
         void onColorPickerEvent(ofxDatGuiColorPickerEvent e);
-    
+        void onDropdownEvent(ofxDatGuiDropdownEvent e);
+
 };

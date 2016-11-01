@@ -371,6 +371,15 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             }
         }
 
+        void dispatchDropdownEvent(ofxDatGuiDropdownEvent e)
+        {
+            if (dropdownEventCallback != nullptr) {
+                dropdownEventCallback(e);
+            }   else{
+                ofxDatGuiLog::write(ofxDatGuiMsg::EVENT_HANDLER_NULL);
+            }
+        }
+
     /*
         component add methods
     */
@@ -504,6 +513,7 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
         {
             ofxDatGuiDropdown* menu = new ofxDatGuiDropdown(label, opts);
             menu->setStripeColor(mStyle.stripe.color);
+            menu->onDropdownEvent(this, &ofxDatGuiFolder::dispatchDropdownEvent);
             attachItem(menu);
             return menu;
         }
