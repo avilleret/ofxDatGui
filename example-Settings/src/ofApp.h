@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxDatGuiSettings.h"
+#include "ofxDatGui.h"
 
 class Circle {
 
