@@ -22,6 +22,7 @@
 #pragma once
 
 #include "ofxXmlSettings.h"
+#include "ofxDatGui.h"
 
 class ofxDatGuiSettings {
 public:
