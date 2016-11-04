@@ -26,14 +26,39 @@
 
 class ofxDatGuiSettings {
 public:
-    void save(const string filename, ofxDatGui* gui){
-        if ( !gui ) return;
+    void save(const string filename, vector<ofxDatGuiComponent*> cpts){
         xml.clear();
         xml.addTag("ofxDatGuiSettings");
         xml.pushTag("ofxDatGuiSettings");
-        writeItems(gui->getItems());
+        writeItems(cpts);
         xml.popTag();
         xml.saveFile(filename);
+    }
+
+    void save(const string filename, ofxDatGui* gui){
+      if ( !gui ) {
+        ofLogError("ofxDatGuiSettings") << "trying to save null data !!";
+        return;
+      }
+      save(filename, gui->getItems());
+    }
+
+    void save(const string filename, ofxDatGuiFolder* gui){
+      if ( !gui ) {
+        ofLogError("ofxDatGuiSettings") << "trying to save null data !!";
+        return;
+      }
+      save(filename, gui->children);
+    }
+
+    void load(const string filename, vector<ofxDatGuiComponent*> cpts){
+        if ( !xml.loadFile(filename) ){
+            ofLogWarning("ofxDatGuiSettings") << "Can't find file: " << filename;
+            return;
+        }
+        xml.pushTag("ofxDatGuiSettings");
+        readItems(cpts);
+        xml.popTag();
     }
 
     void load(const string filename, ofxDatGui* gui){
@@ -41,13 +66,15 @@ public:
             ofLogWarning("ofxDatGuiSettings") << "ofxDatGui pointer is null";
             return;
         }
-        if ( !xml.loadFile(filename) ){
-            ofLogWarning("ofxDatGuiSettings") << "Can't find file: " << filename;
+        load(filename, gui->getItems());
+    }
+
+    void load(const string filename, ofxDatGuiFolder* gui){
+        if ( !gui ){
+            ofLogWarning("ofxDatGuiSettings") << "ofxDatGuiFolder pointer is null";
             return;
         }
-        xml.pushTag("ofxDatGuiSettings");
-        readItems(gui->getItems());
-        xml.popTag();
+        load(filename, gui->children);
     }
 
 private:
