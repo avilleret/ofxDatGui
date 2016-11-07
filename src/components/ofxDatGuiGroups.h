@@ -35,53 +35,53 @@
 class ofxDatGuiGroup : public ofxDatGuiButton {
 
     public:
-
+    
         ofxDatGuiGroup(string label) : ofxDatGuiButton(label), mHeight(0)
         {
             mIsExpanded = false;
             layout();
         }
-
+    
         ~ofxDatGuiGroup()
         {
         // color pickers are deleted automatically when the group is destroyed //
             for (auto i:children) if (i->getType() != ofxDatGuiType::COLOR_PICKER) delete i;
         }
-
+    
         void setPosition(int x, int y)
         {
             ofxDatGuiComponent::setPosition(x, y);
             layout();
         }
-
+    
         void expand()
         {
             mIsExpanded = true;
             layout();
         }
-
+    
         void toggle()
         {
             mIsExpanded = !mIsExpanded;
             layout();
         }
-
+    
         void collapse()
         {
             mIsExpanded = false;
             layout();
         }
-
+    
         int getHeight()
         {
             return mHeight;
         }
-
+    
         bool getIsExpanded()
         {
             return mIsExpanded;
         }
-
+    
         void draw()
         {
             if (mVisible){
@@ -109,9 +109,9 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                 ofPopStyle();
             }
         }
-
+    
     protected:
-
+    
         void layout()
         {
             mHeight = mStyle.height + mStyle.vMargin;
@@ -126,7 +126,7 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                 if (i == children.size()-1) mHeight -= mStyle.vMargin;
             }
         }
-
+    
         void onMouseRelease(ofPoint m)
         {
             if (mFocused){
@@ -141,13 +141,13 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                 }
             }
         }
-
+    
         void dispatchInternalEvent(ofxDatGuiInternalEvent e)
         {
             if (e.type == ofxDatGuiEventType::VISIBILITY_CHANGED) layout();
             internalEventCallback(e);
         }
-
+    
         int mHeight;
         shared_ptr<ofImage> mIconOpen;
         shared_ptr<ofImage> mIconClosed;
@@ -399,6 +399,22 @@ class ofxDatGuiFolder : public ofxDatGuiGroup {
             button->onButtonEvent(this, &ofxDatGuiFolder::dispatchButtonEvent);
             attachItem(button);
             return button;
+        }
+
+        ofxDatGuiFolder* addFolder(string label, ofColor color = ofColor::white)
+        {
+            ofxDatGuiFolder* folder = new ofxDatGuiFolder(label, color);
+            folder->setStripeColor(mStyle.stripe.color);
+            folder->onButtonEvent(this, &ofxDatGuiFolder::dispatchButtonEvent);
+            folder->onToggleEvent(this, &ofxDatGuiFolder::dispatchToggleEvent);
+            folder->onSliderEvent(this, &ofxDatGuiFolder::dispatchSliderEvent);
+            folder->onTextInputEvent(this, &ofxDatGuiFolder::dispatchTextInputEvent);
+            folder->onColorPickerEvent(this, &ofxDatGuiFolder::dispatchColorPickerEvent);
+            folder->onTextInputEvent(this, &ofxDatGuiFolder::dispatchTextInputEvent);
+            folder->on2dPadEvent(this, &ofxDatGuiFolder::dispatch2dPadEvent);
+            folder->onMatrixEvent(this, &ofxDatGuiFolder::dispatchMatrixEvent);
+            attachItem(folder);
+            return folder;
         }
 
         ofxDatGuiToggle* addToggle(string label, bool enabled = false)
