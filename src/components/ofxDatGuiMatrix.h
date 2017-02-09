@@ -241,8 +241,12 @@ class ofxDatGuiMatrix : public ofxDatGuiComponent {
         void setSelected(vector<int> v)
         {
             clear();
-            for (int i=0; i<v.size(); i++) btns[v[i]].setSelected(true);
-            mLastItemSelected = &btns[v.back()];
+            for (int i=0; i<v.size(); i++){
+                if (i<btns.size()) {
+                    btns[v[i]].setSelected(true);
+                    mLastItemSelected = &btns[v[i]];
+                }
+            }
         }
     
         vector<int> getSelected()
