@@ -789,8 +789,8 @@ bool ofxDatGui::hitTest(ofPoint pt)
 
 void ofxDatGui::moveGui(ofPoint pt)
 {
-    mPosition.x = pt.x;
-    mPosition.y = pt.y;
+    mPosition.x = ofClamp(pt.x, 0, ofGetWidth()-100);
+    mPosition.y = ofClamp(pt.y, 0., ofGetHeight()-20);;
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     layoutGui();
 }
