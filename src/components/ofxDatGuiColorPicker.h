@@ -139,29 +139,8 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
     
         bool hitTest(ofPoint m)
         {
-            if (mInput.hitTest(m)){
-                return true;
-            }   else if (mShowPicker && pickerRect.inside(m)){
-                unsigned char p[3];
-                int y = (ofGetMouseY()-ofGetHeight())*-1;
-                glReadPixels(ofGetMouseX(), y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, &p);
-                gColor.r = int(p[0]);
-                gColor.g = int(p[1]);
-                gColor.b = int(p[2]);
-                if (rainbow.rect.inside(m) && mMouseDown){
-                    gColors[2] = gColor;
-                    gColors[0] = ofColor(gColor.r/2, gColor.g/2, gColor.b/2);
-                    vbo.setColorData(&gColors[0], 6, GL_DYNAMIC_DRAW );
-                }   else if (gradientRect.inside(m) && mMouseDown){
-                    mColor = gColor;
-                // dispatch event out to main application //
-                    dispatchEvent();
-                    setTextFieldInputColor();
-                }
-                return true;
-            }   else{
-                return false;
-            }
+            return ( mInput.hitTest(m)
+                     || (mShowPicker && pickerRect.inside(m)));
         }
     
         void dispatchEvent()
@@ -191,13 +170,45 @@ class ofxDatGuiColorPicker : public ofxDatGuiTextInput {
             ofxDatGuiTextInput::onMouseLeave(mouse);
             if (!mInput.hasFocus()) ofxDatGuiComponent::onFocusLost();
         }
+
+        void pickupColor(ofPoint mouse)
+        {
+            if (pickerRect.inside(mouse)){
+                unsigned char p[3];
+                int y = (ofGetMouseY()-ofGetHeight())*-1;
+                glReadPixels(ofGetMouseX(), y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, &p);
+                gColor.r = int(p[0]);
+                gColor.g = int(p[1]);
+                gColor.b = int(p[2]);
+                bool inside_rainbow = rainbow.rect.inside(mouse);
+                bool inside_gradient =gradientRect.inside(mouse);
+                std::cout << "rainbow: " << inside_rainbow << " gradient: " << inside_gradient << " mousePressed: " << ofGetMousePressed() << std::endl;
+                if (inside_rainbow){
+                    gColors[2] = gColor;
+                    gColors[0] = ofColor(gColor.r/2, gColor.g/2, gColor.b/2);
+                    vbo.setColorData(&gColors[0], 6, GL_DYNAMIC_DRAW );
+                }   else if (inside_gradient){
+                    mColor = gColor;
+                // dispatch event out to main application //
+                    dispatchEvent();
+                    setTextFieldInputColor();
+                }
+            }
+        }
+
+        void onMouseDrag(ofPoint mouse)
+        {
+            ofxDatGuiComponent::onMouseDrag(mouse);
+            pickupColor(mouse);
+        }
     
         void onMousePress(ofPoint mouse)
         {
             ofxDatGuiComponent::onMousePress(mouse);
             if (mInput.hitTest(mouse)) mInput.onFocus();
+            pickupColor(mouse);
         }
-    
+
         void onInputChanged(ofxDatGuiInternalEvent e)
         {
             mColor = ofColor::fromHex(ofHexToInt(mInput.getText()));

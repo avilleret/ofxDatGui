@@ -166,10 +166,13 @@ class ofxDatGuiToggle : public ofxDatGuiButton {
     
         void onMouseRelease(ofPoint m)
         {
-            mChecked = !mChecked;
-            ofxDatGuiComponent::onFocusLost();
-            ofxDatGuiComponent::onMouseRelease(m);
-            dispatchEvent();
+            if( hitTest(m) )
+            {
+                mChecked = !mChecked;
+                ofxDatGuiComponent::onFocusLost();
+                ofxDatGuiComponent::onMouseRelease(m);
+                dispatchEvent();
+            }
         }
     
     private:
