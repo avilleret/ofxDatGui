@@ -86,6 +86,15 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         virtual bool getIsExpanded();
         virtual void drawColorPicker();
 
+        // vanilla oF's mouse interaction callback
+        void mouseMoved(ofMouseEventArgs & args);
+        void mouseDragged(ofMouseEventArgs & args);
+        void mousePressed(ofMouseEventArgs & args);
+        void mouseReleased(ofMouseEventArgs & args);
+        void mouseScrolled(ofMouseEventArgs & args);
+        void mouseEntered(ofMouseEventArgs & args);
+        void mouseExited(ofMouseEventArgs & args);
+
         virtual void onFocus();    
         virtual void onFocusLost();
         virtual void onWindowResized();
@@ -109,6 +118,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         bool mFocused;
         bool mVisible;
         bool mEnabled;
+        bool mAcceptEvents;
         bool mMouseOver;
         bool mMouseDown;
         ofRectangle mMask;

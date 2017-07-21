@@ -39,6 +39,8 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mAnchor = ofxDatGuiAnchor::NO_ANCHOR;
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
+
+    ofRegisterMouseEvents(this);
 }
 
 ofxDatGuiComponent::~ofxDatGuiComponent()
@@ -344,41 +346,62 @@ void ofxDatGuiComponent::setBorderVisible(bool visible)
     mStyle.border.visible = visible;
 }
 
-/*
-    draw methods
-*/
+void ofxDatGuiComponent::mouseMoved(ofMouseEventArgs & args)
+{
+  if (mVisible && mEnabled){
+    ofPoint mouse(args.x,args.y);
+    if ( hitTest(mouse) )
+    {
+      if (!mMouseOver){
+          onMouseEnter(mouse);
+      }
+    } else {
+      if (mMouseOver && !ofGetMousePressed()){
+          onMouseLeave(mouse);
+      }
+    }
+  }
+}
+
+void ofxDatGuiComponent::mousePressed(ofMouseEventArgs & args)
+{
+  if (mVisible && mEnabled){
+    if(mMouseOver){
+      ofPoint mouse(args.x,args.y);
+      onMousePress(mouse);
+      if (!mFocused) onFocus();
+    } else if (mFocused)
+      onFocusLost();
+  }
+}
+
+void ofxDatGuiComponent::mouseDragged(ofMouseEventArgs & args){
+  if (mVisible && mEnabled){
+    if(mMouseOver){
+      ofPoint mouse(args.x,args.y);
+      onMouseDrag(mouse);
+    }
+  }
+}
+
+void ofxDatGuiComponent::mouseReleased(ofMouseEventArgs & args)
+{
+  if (mVisible && mEnabled){
+    if (mMouseDown){
+      ofPoint mouse(args.x,args.y);
+      onMouseRelease(mouse);
+    }
+  }
+}
+
+void ofxDatGuiComponent::mouseScrolled(ofMouseEventArgs & args){}
+void ofxDatGuiComponent::mouseEntered(ofMouseEventArgs & args){}
+void ofxDatGuiComponent::mouseExited(ofMouseEventArgs & args){}
 
 void ofxDatGuiComponent::update(bool acceptEvents)
 {
-    if (acceptEvents && mEnabled && mVisible){
-        bool mp = ofGetMousePressed();
-        ofPoint mouse = ofPoint(ofGetMouseX() - mMask.x, ofGetMouseY() - mMask.y);
-        if (hitTest(mouse)){
-            if (!mMouseOver){
-                onMouseEnter(mouse);
-            }
-            if (!mMouseDown && mp){
-                onMousePress(mouse);
-                if (!mFocused) onFocus();
-            }
-        }   else{
-    // the mouse is not over the component //
-            if (mMouseOver){
-                onMouseLeave(mouse);
-            }
-            if (!mMouseDown && mp && mFocused){
-                onFocusLost();
-            }
-        }
-        if (mMouseDown) {
-            if (mp){
-                onMouseDrag(mouse);
-            }   else{
-                onMouseRelease(mouse);
-            }
-        }
-    }
-// don't update children unless they're visible //
+    // don't update children unless they're visible //
+    mAcceptEvents = acceptEvents;
     if (this->getIsExpanded()) {
         for(int i=0; i<children.size(); i++) {
             children[i]->update(acceptEvents);
@@ -389,6 +412,10 @@ void ofxDatGuiComponent::update(bool acceptEvents)
         }
     }
 }
+
+/*
+    draw methods
+*/
 
 void ofxDatGuiComponent::draw()
 {
