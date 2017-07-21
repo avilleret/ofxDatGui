@@ -143,12 +143,12 @@ class ofxDatGui2dPad : public ofxDatGuiComponent {
     
         void onMouseDrag(ofPoint m)
         {
-            if (mPad.inside(m)){
-                mPercentX = (m.x-mPad.x) / mPad.width;
-                mPercentY = (m.y-mPad.y) / mPad.height;
-                setWorldCoordinates();
-                dispatchEvent();
-            }
+            mPercentX = (m.x-mPad.x) / mPad.width;
+            mPercentY = (m.y-mPad.y) / mPad.height;
+            mPercentX = ofClamp(mPercentX,0.,1.);
+            mPercentY = ofClamp(mPercentY,0.,1.);
+            setWorldCoordinates();
+            dispatchEvent();
         }
     
         void onWindowResized(ofResizeEventArgs &e)
