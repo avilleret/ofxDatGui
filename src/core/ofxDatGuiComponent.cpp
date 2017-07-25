@@ -184,6 +184,10 @@ void ofxDatGuiComponent::setOpacity(float opacity)
 void ofxDatGuiComponent::setEnabled(bool enabled)
 {
     mEnabled = enabled;
+    if (mEnabled)
+      ofRegisterMouseEvents(this);
+    else
+      ofUnregisterMouseEvents(this);
 }
 
 bool ofxDatGuiComponent::getEnabled()

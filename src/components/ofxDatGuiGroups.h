@@ -124,6 +124,7 @@ class ofxDatGuiGroup : public ofxDatGuiButton {
                     mHeight += children[i]->getHeight() + mStyle.vMargin;
                 }
                 if (i == children.size()-1) mHeight -= mStyle.vMargin;
+                children[i]->setEnabled(mIsExpanded);
             }
         }
     
