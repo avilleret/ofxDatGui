@@ -141,6 +141,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void moveGui(ofPoint pt);
         bool hitTest(ofPoint pt);
         void attachItem(ofxDatGuiComponent* item);
+        void unregisterMouseEventRecurs(ofxDatGuiComponent* item);
+        void registerMouseEventRecurs(ofxDatGuiComponent* item);
 
         void onDraw(ofEventArgs &e);
         void onUpdate(ofEventArgs &e);
