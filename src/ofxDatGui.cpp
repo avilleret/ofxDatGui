@@ -67,17 +67,17 @@ void ofxDatGui::init()
     mWidth = ofxDatGuiComponent::getTheme()->layout.width;
     mRowSpacing = ofxDatGuiComponent::getTheme()->layout.vMargin;
     mGuiBackground = ofxDatGuiComponent::getTheme()->color.guiBackground;
-    
+
 // enable autodraw by default //
     setAutoDraw(true, mGuis.size());
-    
+
 // assign focus to this newly created gui //
     mActiveGui = this;
     mGuis.push_back(this);
     ofAddListener(ofEvents().windowResized, this, &ofxDatGui::onWindowResized, OF_EVENT_ORDER_BEFORE_APP);
 }
 
-/* 
+/*
     public api
 */
 
@@ -127,6 +127,11 @@ void ofxDatGui::toggle()
 bool ofxDatGui::getVisible()
 {
     return mVisible;
+}
+
+bool ofxDatGui::getEnabled()
+{
+  return mEnabled;
 }
 
 bool ofxDatGui::getFocused()
@@ -236,7 +241,7 @@ string ofxDatGui::getAssetPath()
     return ofxDatGuiTheme::AssetPath;
 }
 
-/* 
+/*
     add component methods
 */
 
@@ -851,7 +856,7 @@ void ofxDatGui::update()
         if (mWidthChanged) items[i]->setWidth(mWidth, mLabelWidth);
         if (mAlignmentChanged) items[i]->setLabelAlignment(mAlignment);
     }
-    
+
     if (mThemeChanged || mWidthChanged) layoutGui();
 
     mTheme = nullptr;
@@ -859,7 +864,7 @@ void ofxDatGui::update()
     mWidthChanged = false;
     mThemeChanged = false;
     mAlignmentChanged = false;
-    
+
     // check for gui focus change //
     if (ofGetMousePressed() && mActiveGui->mMoving == false){
         ofPoint mouse = ofPoint(ofGetMouseX(), ofGetMouseY());

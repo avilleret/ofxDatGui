@@ -9,13 +9,13 @@ void ofApp::setup()
 {
 // instantiate and position the gui //
     gui = new ofxDatGui( ofxDatGuiAnchor::TOP_RIGHT );
-    
+
 // add some components //
     gui->addTextInput("message", "# open frameworks #");
-    
+
     gui->addFRM();
     gui->addBreak();
-    
+
 // add a folder to group a few components together //
     ofxDatGuiFolder* folder = gui->addFolder("white folder", ofColor::white);
     folder->addTextInput("** input", "nested input field");
@@ -26,24 +26,24 @@ void ofApp::setup()
     folder->expand();
 
     gui->addBreak();
-    
+
 // add a couple range sliders //
     gui->addSlider("position X", 0, 120, 75);
     gui->addSlider("position Y", -40, 240, 200);
     gui->addSlider("position Z", -80, 120, -40);
-    
+
 // and a slider to adjust the gui opacity //
     gui->addSlider("datgui opacity", 0, 100, 100);
-    
+
 // and a colorpicker //
     gui->addColorPicker("color picker", ofColor::fromHex(0xeeeeee));
-   
+
 // add a wave monitor //
 // take a look inside example-TimeGraph for more examples of this component and the value plotter //
     gui->addWaveMonitor("wave\nmonitor", 3, .2);
-    
+
     gui->addBreak();
-    
+
 // add a dropdown menu //
     vector<string> opts = {"option - 1", "option - 2", "option - 3", "option - 4"};
     gui->addDropdown("select option", opts);
@@ -64,7 +64,7 @@ void ofApp::setup()
 
 // adding the optional footer allows you to collapse/expand the gui //
     gui->addFooter();
-    
+
 // once the gui has been assembled, register callbacks to listen for component specific events //
     gui->onButtonEvent(this, &ofApp::onButtonEvent);
     gui->onToggleEvent(this, &ofApp::onToggleEvent);
@@ -88,7 +88,7 @@ void ofApp::setup()
                 new ofxDatGuiThemeAutumn(),
                 new ofxDatGuiThemeCandy()};
     tIndex = 0;
-    
+
 // launch the app //
     mFullscreen = true;
     refreshWindow();
@@ -119,6 +119,7 @@ void ofApp::onTextInputEvent(ofxDatGuiTextInputEvent e)
 void ofApp::on2dPadEvent(ofxDatGui2dPadEvent e)
 {
     cout << "on2dPadEvent: " << e.target->getLabel() << " " << e.x << ":" << e.y << endl;
+    m_point = ofPoint(e.x,e.y);
 }
 
 void ofApp::onDropdownEvent(ofxDatGuiDropdownEvent e)
@@ -138,7 +139,10 @@ void ofApp::onMatrixEvent(ofxDatGuiMatrixEvent e)
     cout << "onMatrixEvent " << e.target->getLabel() << " : " << e.target->getSelected().size() << endl;
 }
 
-void ofApp::draw() { }
+void ofApp::draw() {
+  ofSetColor(255,0,0,255);
+  ofDrawCircle(m_point, 100);
+}
 void ofApp::update() { }
 
 void ofApp::keyPressed(int key)
@@ -148,7 +152,12 @@ void ofApp::keyPressed(int key)
     }   else if (key == 32){
         tIndex = tIndex < themes.size()-1 ? tIndex+1 : 0;
         gui->setTheme(themes[tIndex]);
-    }
+    } else if (key== 'h'){
+      gui->setAutoDraw(!gui->getAutoDraw());
+    } else if (key == 'v')
+      gui->setVisible(!gui->getVisible());
+    else if (key == 'e')
+      gui->setEnabled(!gui->getEnabled());
 }
 
 void ofApp::toggleFullscreen()
