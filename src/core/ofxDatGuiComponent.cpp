@@ -85,6 +85,16 @@ ofxDatGuiType ofxDatGuiComponent::getType()
     return mType;
 }
 
+void    ofxDatGuiComponent::setRecallSafe(bool flag)
+{
+  mRecallSafe = flag;
+}
+
+bool    ofxDatGuiComponent::getRecallSafe()
+{
+  return mRecallSafe;
+}
+
 const ofxDatGuiTheme* ofxDatGuiComponent::getTheme()
 {
     if (theme == nullptr) theme = make_unique<ofxDatGuiTheme>(true);

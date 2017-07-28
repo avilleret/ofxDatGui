@@ -69,6 +69,9 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         void    setOpacity(float opacity);
         bool    getMouseDown();
         ofxDatGuiType getType();
+
+        void    setRecallSafe(bool flag);
+        bool    getRecallSafe();
     
         vector<ofxDatGuiComponent*> children;
     
@@ -125,6 +128,7 @@ class ofxDatGuiComponent : public ofxDatGuiInteractiveObject
         ofxDatGuiType mType;
         ofxDatGuiAnchor mAnchor;
         shared_ptr<ofxSmartFont> mFont;
+        bool mRecallSafe{}; // do not recall value if set
     
         struct{
             float width;
