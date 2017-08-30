@@ -26,7 +26,7 @@
 
 class ofxDatGuiSettings {
 public:
-    void save(const string filename, vector<ofxDatGuiComponent*> cpts){
+    void save(const string filename, const vector<ofxDatGuiComponent*> cpts){
         xml.clear();
         xml.addTag("ofxDatGuiSettings");
         xml.pushTag("ofxDatGuiSettings");
@@ -43,7 +43,7 @@ public:
       save(filename, gui->getItems());
     }
 
-    void save(const string filename, ofxDatGuiFolder* gui){
+    void save(const string filename, const ofxDatGuiFolder* gui){
       if ( !gui ) {
         ofLogError("ofxDatGuiSettings") << "trying to save null data !!";
         return;
@@ -69,7 +69,7 @@ public:
         load(filename, gui->getItems());
     }
 
-    void load(const string filename, ofxDatGuiFolder* gui){
+    void load(const string filename, const ofxDatGuiFolder* gui){
         if ( !gui ){
             ofLogWarning("ofxDatGuiSettings") << "ofxDatGuiFolder pointer is null";
             return;
@@ -78,7 +78,7 @@ public:
     }
 
 private:
-    void writeItems(vector<ofxDatGuiComponent*> & items){
+    void writeItems(const vector<ofxDatGuiComponent*> & items){
         int tagNum=0;
         for (auto item : items){
             string name = item->getName();
