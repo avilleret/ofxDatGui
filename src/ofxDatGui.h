@@ -102,6 +102,8 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         ofxDatGuiDropdown* getDropdown(string label);
 
         void removeComponent(ofxDatGuiType type, string label);
+        void attachItem(ofxDatGuiComponent* item);
+
     private:
 
         int mIndex;
@@ -140,7 +142,6 @@ class ofxDatGui : public ofxDatGuiInteractiveObject
         void anchorGui();
         void moveGui(ofPoint pt);
         bool hitTest(ofPoint pt);
-        void attachItem(ofxDatGuiComponent* item);
         void unregisterMouseEventRecurs(ofxDatGuiComponent* item);
         void registerMouseEventRecurs(ofxDatGuiComponent* item);
 
