@@ -40,7 +40,6 @@ ofxDatGuiComponent::ofxDatGuiComponent(string label)
     mLabel.text = label;
     mLabel.alignment = ofxDatGuiAlignment::LEFT;
 
-    ofRegisterMouseEvents(this);
 }
 
 ofxDatGuiComponent::~ofxDatGuiComponent()
@@ -48,7 +47,6 @@ ofxDatGuiComponent::~ofxDatGuiComponent()
 //  cout << "ofxDatGuiComponent "<< mName << " destroyed" << endl;
     ofRemoveListener(ofEvents().keyPressed, this, &ofxDatGuiComponent::onKeyPressed);
     ofRemoveListener(ofEvents().windowResized, this, &ofxDatGuiComponent::onWindowResized);
-    ofUnregisterMouseEvents(this);
 }
 
 /*
@@ -84,6 +82,16 @@ bool ofxDatGuiComponent::is(string name)
 ofxDatGuiType ofxDatGuiComponent::getType()
 {
     return mType;
+}
+
+void    ofxDatGuiComponent::setRecallSafe(bool flag)
+{
+  mRecallSafe = flag;
+}
+
+bool    ofxDatGuiComponent::getRecallSafe()
+{
+  return mRecallSafe;
 }
 
 const ofxDatGuiTheme* ofxDatGuiComponent::getTheme()

@@ -181,18 +181,6 @@ void ofxDatGui::setPosition(ofxDatGuiAnchor anchor)
 void ofxDatGui::setVisible(bool visible)
 {
     mVisible = visible;
-    if (mVisible)
-    {
-      for (auto item : items)
-      {
-        registerMouseEventRecurs(item);
-      }
-    } else {
-      for (auto item : items)
-      {
-        unregisterMouseEventRecurs(item);
-      }
-    }
 }
 
 void ofxDatGui::setEnabled(bool enabled)
@@ -443,24 +431,6 @@ void ofxDatGui::attachItem(ofxDatGuiComponent* item)
     }
     item->onInternalEvent(this, &ofxDatGui::onInternalEventCallback);
     layoutGui();
-}
-
-void ofxDatGui::unregisterMouseEventRecurs(ofxDatGuiComponent* item)
-{
-  ofUnregisterMouseEvents(item);
-  for(auto it : item->children)
-  {
-    unregisterMouseEventRecurs(it);
-  }
-}
-
-void ofxDatGui::registerMouseEventRecurs(ofxDatGuiComponent* item)
-{
-  ofRegisterMouseEvents(item);
-  for(auto it : item->children)
-  {
-    registerMouseEventRecurs(it);
-  }
 }
 
 /*
