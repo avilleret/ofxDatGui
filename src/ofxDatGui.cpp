@@ -181,6 +181,7 @@ void ofxDatGui::setPosition(ofxDatGuiAnchor anchor)
 void ofxDatGui::setVisible(bool visible)
 {
     mVisible = visible;
+    layoutGui();
 }
 
 void ofxDatGui::setEnabled(bool enabled)
